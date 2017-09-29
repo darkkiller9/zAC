@@ -63,7 +63,7 @@ public class Flight implements Listener
 				{
 					if(Staff.hasPermission(Permissions.NOTIFY))
 					{
-						Staff.sendMessage(Messages.PREFIX + "§e§l" + p.getName() + "§7 has been detected for §5§l" + Checks.FLIGHT.toString() + " §7" + p.getLocation().getX() + " , " + p.getLocation().getY() + " , " + p.getLocation().getZ() + ". §5§lMAX: " + MaxLevel.MAX_FLIGHT.toString() + "§7, §6CheckType: §l" + CheckType.FAILED.toString() + "§7."); 
+						Staff.sendMessage(Messages.PREFIX + "§e§l" + p.getName() + "§7 has been detected for §5§l" + Checks.FLIGHT.toString() + " §7" + p.getLocation().getX() + " , " + p.getLocation().getY() + " , " + p.getLocation().getZ() + ". §5§lMAX: " + MaxLevel.MAX_FLIGHT.toString() + "§7, §6§lCheckType: §c§l" + CheckType.FAILED.toString() + "§7."); 
 						
 					}
 				}

@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import pl.zac.me.Checks.Flight;
+import pl.zac.me.Checks.Speed;
 import pl.zac.me.commands.ZAC;
 
 
@@ -35,6 +36,7 @@ public class Main extends JavaPlugin implements Listener {
 		//register events here:
 		
 		Bukkit.getServer().getPluginManager().registerEvents(new Flight(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Speed(), this);
 		
 	}
 	public static Main getInstance(){

@@ -1,0 +1,9 @@
+# Some edits may cause bugs to defaults.
+general:
+# You can edit the prefix that may be shown in zac message or on notify message
+ 
+   prefix: '&5&lzAC &7'
+
+# Checks
+checks:
+   max_speed: 0.45D
