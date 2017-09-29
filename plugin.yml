@@ -1,0 +1,5 @@
+main: pl.zac.me.Main
+version: 1.0.0
+name: zAC
+commands:
+   zac:
