@@ -5,7 +5,9 @@ package pl.zac.me.Checks.Notify;
 public enum Checks 
 {
 	FLIGHT,
-	SPEEED
+	SPEED,
+	WATER_WALK,
+	GLIDE
 	
 
 	

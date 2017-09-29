@@ -18,48 +18,34 @@ import pl.zac.me.Checks.Notify.Checks;
 import pl.zac.me.Utils.Messages;
 import pl.zac.me.Utils.Permissions;
 
-public class Flight implements Listener
-{
+public class WaterWalk implements Listener{
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void onMove(PlayerMoveEvent e)
-	{
+	public void onMove(PlayerMoveEvent e){
 		Player p = e.getPlayer();
 		Location to = e.getTo();
 		Location from = e.getFrom();
 		Vector vec = to.toVector();
 		double i = vec.distance(from.toVector());
-		if(p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().equals(Material.SPONGE)){
+		if(p.getGameMode().equals(GameMode.CREATIVE)){
 			return;
 		}
-		if(p.getGameMode().equals(GameMode.CREATIVE))
-		{
+		if(p.getEntityId()==100){
 			return;
 		}
-		if(p.getEntityId()==100)
-		{
+		if(p.getVehicle() !=null){
 			return;
 		}
-		if(p.getVehicle() !=null)
-		{
+		if(p.getAllowFlight() == true){
 			return;
 		}
-		if(p.getAllowFlight() == true)
-		{
-			return;
-		}
-		if((p.getFallDistance() == 0.0F) && 
-				(p.getLocation().getBlock().getRelative(BlockFace.UP).getType().equals(Material.AIR)))
-		{
-			if(i > MaxLevel.MAX_FLIGHT)
-			{
-				if(p.isOnGround())
-				{
-					return;
-				}
-				e.setCancelled(true);
-				p.teleport(e.getFrom());
+		if((i > MaxLevel.MIN_WATER_WALK) && (i < MaxLevel.MAX_WATER_WALK)){
+			if(p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.WATER){
+				return;
+			}
+			if(p.getLocation().getBlock().getRelative(BlockFace.DOWN).isLiquid()){
+				p.setHealth(0);
 				if(Main.getInstance().getConfig().getBoolean("autoban") == true)
 				{
 					p.kickPlayer("§5§lYou have been banned from the server!\n§c§lBy:\n §5§lzAC \n§c§lReason: §5§lHacking \n§c§lAppeal at: §5§l" + Messages.APPEAL );
@@ -68,16 +54,14 @@ public class Flight implements Listener
 					{
 						if(Staff.hasPermission(Permissions.NOTIFY))
 						{
-							Staff.sendMessage(Messages.PREFIX + "§e§l" + p.getName() + "§7 has been detected for §5§l" + Checks.FLIGHT.toString() + " §7" + p.getLocation().getX() + " , " + p.getLocation().getY() + " , " + p.getLocation().getZ() + ". §5§lMAX: " + MaxLevel.MAX_FLIGHT.toString() + "§7, §6§lCheckType: §c§l" + CheckType.FAILED.toString() + "§7.");
+							Staff.sendMessage(Messages.PREFIX + "§e§l" + p.getName() + "§7 has been detected for §5§l" + Checks.WATER_WALK.toString() + " §7" + p.getLocation().getX() + " , " + p.getLocation().getY() + " , " + p.getLocation().getZ() + ". §5§lMAX: " + MaxLevel.MAX_WATER_WALK.toString() + "§7, §6§lCheckType: §a§l" + CheckType.DETECTED.toString() + "§7."); 
 						}
 					}
+					
+				
 				}
 			}
 		}
 	}
-}
 
-				
-				 
-						
-					
+}

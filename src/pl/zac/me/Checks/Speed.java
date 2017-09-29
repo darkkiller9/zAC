@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
+import pl.zac.me.Main;
 import pl.zac.me.Checks.Levels.CheckType;
 import pl.zac.me.Checks.Levels.MaxLevel;
 import pl.zac.me.Checks.Notify.Checks;
@@ -19,6 +20,7 @@ import pl.zac.me.Utils.Permissions;
 
 public class Speed implements Listener{
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onMove(PlayerMoveEvent e){
 		Player p = e.getPlayer();
@@ -49,14 +51,20 @@ public class Speed implements Listener{
 		if(i >= MaxLevel.MAX_SPEED){
 			e.setCancelled(true);
 			p.teleport(e.getFrom());
-			for (Player Staff: Bukkit.getOnlinePlayers())
+			if(Main.getInstance().getConfig().getBoolean("autoban") == true)
 			{
-				if(Staff.hasPermission(Permissions.NOTIFY))
+				p.kickPlayer("§5§lYou have been banned from the server!\n§c§lBy:\n §5§lzAC \n§c§lReason: §5§lHacking \n§c§lAppeal at: §5§l" + Messages.APPEAL );
+				p.setBanned(true);
+				for (Player Staff: Bukkit.getOnlinePlayers())
 				{
-					Staff.sendMessage(Messages.PREFIX + "§e§l" + p.getName() + "§7 has been detected for §5§l" + Checks.SPEEED.toString() + " §7" + p.getLocation().getX() + " , " + p.getLocation().getY() + " , " + p.getLocation().getZ() + ". §5§lMAX: " + MaxLevel.MAX_SPEED.toString() + "§7, §6§lCheckType: §a§l" + CheckType.DETECTED.toString() + "§7."); 
+					if(Staff.hasPermission(Permissions.NOTIFY))
+					{
+						Staff.sendMessage(Messages.PREFIX + "§e§l" + p.getName() + "§7 has been detected for §5§l" + Checks.SPEED.toString() + " §7" + p.getLocation().getX() + " , " + p.getLocation().getY() + " , " + p.getLocation().getZ() + ". §5§lMAX: " + MaxLevel.MAX_SPEED.toString() + "§7, §6§lCheckType: §a§l" + CheckType.DETECTED.toString() + "§7."); 
+					}
 				}
 			}
 		}
 	}
-
 }
+			
+		
